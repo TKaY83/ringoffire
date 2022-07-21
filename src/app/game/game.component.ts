@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Game } from 'src/models/game';
 
 @Component({
   selector: 'app-game',
@@ -7,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
   pickCardAnimaton = false;
+  game: Game;
   
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+  newGame(){
+    this.game = new Game();
   }
 
   takeCard(){
