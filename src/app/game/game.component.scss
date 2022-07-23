@@ -28,6 +28,11 @@
     }
 }
 
+.played_cards{
+    left: 25px;
+    transform: scale(1.1) translateX(120px) translateY(-280px) rotate(-10deg);
+}
+
 .pick_card {
     animation: pick_card_animation 1.25s ease-in-out;
     transform: scale(1.1) translateX(120px) translateY(-280px) rotate(-10deg);

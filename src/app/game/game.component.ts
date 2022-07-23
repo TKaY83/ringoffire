@@ -10,22 +10,31 @@ export class GameComponent implements OnInit {
   pickCardAnimaton = false;
   game: Game;
   currentCard: string = '';
-  
+
   constructor() { }
 
   ngOnInit(): void {
     this.newGame();
   }
-  
-  newGame(){
+
+  newGame() {
     this.game = new Game();
     console.log(this.game);
   }
 
-  takeCard(){
-    this.currentCard = this.game.stack.pop();
-    console.log(this.currentCard);
-    this.pickCardAnimaton = true;
+  takeCard() {
+
+    if (!this.pickCardAnimaton) {
+      this.currentCard = this.game.stack.pop();
+      this.pickCardAnimaton = true;
+      console.log('New Card:' + this.currentCard);
+      console.log('Game is', this.game);
+      setTimeout(() => {
+        this.game.playedCards.push(this.currentCard);
+        this.pickCardAnimaton = false;
+      }, 1200);
+    }
+
   }
 
 
