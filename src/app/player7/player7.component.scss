@@ -5,7 +5,7 @@
     width: 300px;
     display: flex;
     align-items: center;
-    background-color: rgb(63, 81, 181);
+    background-color: rgba(96, 100, 123, 0.8);
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
     span{
@@ -13,9 +13,18 @@
         margin-left: 16px;
     }
     img{
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
         object-fit: cover;
         border-radius: 50%;
+    }
+}
+
+.player_active{
+    background-color: rgb(63, 81, 181,) !important;
+    color: white;
+
+    img{
+        transform: scale(1.3);
     }
 }
