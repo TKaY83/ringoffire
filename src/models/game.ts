@@ -1,9 +1,9 @@
 export class Game {
-    public players: string[] = ['Tuncay', 'Aysegül', 'Merve', 'Melek'];
+    public players: string[] = [];
     public stack: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
-
+    // 'Tuncay', 'Aysegül', 'Merve', 'Melek'
     constructor(){
         for (let i = 1; i < 14; i++) {
             this.stack.push('ace_' + i);
