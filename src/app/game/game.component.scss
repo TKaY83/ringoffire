@@ -28,7 +28,7 @@
     }
 }
 
-.played_cards{
+.played_cards {
     left: 25px;
     transform: scale(1.1) translateX(120px) translateY(-280px) rotate(-10deg);
 }
@@ -56,19 +56,18 @@
     }
 }
 
-.player_position{
+.player_position {
     position: absolute;
     right: 0%;
 }
 
-.btn_add{
+.btn_add {
     position: absolute;
     right: 32px;
     bottom: 32px;
 }
 
-
-.pin_bottom{
+.pin_bottom {
     position: absolute;
     bottom: 32px;
     left: 100px;
