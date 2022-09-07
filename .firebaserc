@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tkayringoffire": {
+      "hosting": {
+        "ringoffire": [
+          "tkayringoffire"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tkayringoffire"
+  }
+}
