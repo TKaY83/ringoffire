@@ -23,8 +23,8 @@ export class GameComponent implements OnInit {
     this.newGame();
     this.route.params.subscribe((params) => {
       this.gameId = params['id']
-      console.log(this.gameId)
-      
+      // console.log(this.gameId);
+
       this
         .firestore
         .collection('games')
@@ -47,22 +47,30 @@ export class GameComponent implements OnInit {
 
   takeCard() {
 
-    if (!this.game.pickCardAnimaton) {
-      this.game.currentCard = this.game.stack.pop();
-      this.game.pickCardAnimaton = true;
-      // console.log('New Card:' + this.game.currentCard);
-      // console.log('Game is', this.game);
-      
+    if (this.game.players.length >= 2) {
 
-      this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-      this.saveGame();
-      setTimeout(() => {
-        this.game.playedCards.push(this.game.currentCard);
-        this.game.pickCardAnimaton = false;
+      if (!this.game.pickCardAnimaton) {
+        this.game.currentCard = this.game.stack.pop();
+        this.game.pickCardAnimaton = true;
+        // console.log('New Card:' + this.game.currentCard);
+        // console.log('Game is', this.game);
+
+
+        setTimeout(()=>{
+          this.game.currentPlayer++;
+          this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+        }, 1200)
         this.saveGame();
-      }, 1200);
-    }
+        setTimeout(() => {
+          this.game.playedCards.push(this.game.currentCard);
+          this.game.pickCardAnimaton = false;
+          this.saveGame();
+        }, 1200);
+      }
+    } else{
+      alert('Please select minimum 2 Players')    }
+
+
 
   }
 
@@ -78,12 +86,12 @@ export class GameComponent implements OnInit {
     });
   }
 
-  saveGame(){
+  saveGame() {
     this
-    .firestore
-    .collection('games')
-    .doc(this.gameId)
-    .update(this.game.toJSON());
+      .firestore
+      .collection('games')
+      .doc(this.gameId)
+      .update(this.game.toJSON());
   }
 }
 
