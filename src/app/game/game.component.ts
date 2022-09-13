@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-import { addDoc, collection, collectionData, doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { setDoc } from '@firebase/firestore';
+// import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -19,64 +17,30 @@ export class GameComponent implements OnInit {
   pickCardAnimaton = false;
   game: Game;
   currentCard: string = '';
-  games$: Observable<any>;
-  games: Array<any>;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: Firestore) {
-    // const coll = collection(this.firestore, 'games');
-    // this.games$ = collectionData(coll);
-
-    // this.games$.subscribe((newGames) => {
-    //   console.log('Game update', newGames)
-    //   this.games = newGames;
-    // });
-  }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
     this.newGame();
-    this.route.params.subscribe( async (params:any) => {
-      console.log(params['id']);
+    this.route.params.subscribe((params) => {
+      console.log(params['id'])
 
-      const coll = collection(this.firestore, 'games');
-      const docRef = doc(coll, params['id']);
-      const docSnap = await getDoc(docRef);
-
-      this.game.currentPlayer = params.currentPlayer;
-      this.game.playedCards = params.playedCards;
-      this.game.players = params.players;
-      this.game.stack = params.stack;
-
-
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-
+      this
+        .firestore
+        .collection('games')
+        .doc(params['id'])
+        .valueChanges()
+        .subscribe((game: any) => {
+          this.game.currentPlayer = game.currentPlayer
+          this.game.playedCards = game.playedCards
+          this.game.players = game.players
+          this.game.stack = game.stack
+        });
     });
-
-    // ngOnInit(): void {
-    //   this.newGame();
-  
-    //   //angular fire modular API
-    //   const coll = collection(this.firestore, 'items');
-    //   this.games$ = collectionData(coll);
-    //   this.games$.subscribe( changes => this.games = changes );
-  
-    //   //angular fire compat API
-    //   this.angularFirestore
-    //   .collection('games')
-    //   .valueChanges({idField : 'customIdName'})
-    //   .subscribe(changes => this.games = changes);
-    // }
-  
   }
 
   newGame() {
     this.game = new Game();
-    // const coll = collection(this.firestore, 'games');
-    // addDoc(coll, this.game.toJSON());
   }
 
   takeCard() {
