@@ -14,27 +14,29 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickCardAnimaton = false;
   game: Game;
-  currentCard: string = '';
+  gameId: string;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe((params) => {
-      console.log(params['id'])
-
+      this.gameId = params['id']
+      console.log(this.gameId)
+      
       this
         .firestore
         .collection('games')
-        .doc(params['id'])
+        .doc(this.gameId)
         .valueChanges()
         .subscribe((game: any) => {
-          this.game.currentPlayer = game.currentPlayer
-          this.game.playedCards = game.playedCards
-          this.game.players = game.players
-          this.game.stack = game.stack
+          this.game.currentPlayer = game.currentPlayer;
+          this.game.playedCards = game.playedCards;
+          this.game.players = game.players;
+          this.game.stack = game.stack;
+          this.game.pickCardAnimaton = game.pickCardAnimaton;
+          this.game.currentCard = game.currentCard;
         });
     });
   }
@@ -45,17 +47,20 @@ export class GameComponent implements OnInit {
 
   takeCard() {
 
-    if (!this.pickCardAnimaton) {
-      this.currentCard = this.game.stack.pop();
-      this.pickCardAnimaton = true;
-      console.log('New Card:' + this.currentCard);
-      console.log('Game is', this.game);
+    if (!this.game.pickCardAnimaton) {
+      this.game.currentCard = this.game.stack.pop();
+      this.game.pickCardAnimaton = true;
+      // console.log('New Card:' + this.game.currentCard);
+      // console.log('Game is', this.game);
+      
 
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      this.saveGame();
       setTimeout(() => {
-        this.game.playedCards.push(this.currentCard);
-        this.pickCardAnimaton = false;
+        this.game.playedCards.push(this.game.currentCard);
+        this.game.pickCardAnimaton = false;
+        this.saveGame();
       }, 1200);
     }
 
@@ -67,9 +72,18 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe(name => {
       if (name && name.length > 2) {
         this.game.players.push(name);
+        this.saveGame();
       }
 
     });
+  }
+
+  saveGame(){
+    this
+    .firestore
+    .collection('games')
+    .doc(this.gameId)
+    .update(this.game.toJSON());
   }
 }
 
