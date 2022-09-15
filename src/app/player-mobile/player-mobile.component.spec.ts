@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Player7Component } from './player7.component';
+import { PlayerMobileComponent } from './player-mobile.component';
 
-describe('Player7Component', () => {
-  let component: Player7Component;
-  let fixture: ComponentFixture<Player7Component>;
+describe('PlayerMobileComponent', () => {
+  let component: PlayerMobileComponent;
+  let fixture: ComponentFixture<PlayerMobileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Player7Component ]
+      declarations: [ PlayerMobileComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Player7Component);
+    fixture = TestBed.createComponent(PlayerMobileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

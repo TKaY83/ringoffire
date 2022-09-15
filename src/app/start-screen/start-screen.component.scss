@@ -1,4 +1,4 @@
-.start_screen{
+.start_screen {
     background-color: #404040;
     width: 100vw;
     height: 100vh;
@@ -6,12 +6,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    img{
+
+    img {
         height: 100vh;
+    }
+
+    @media (max-width: 960px) {
+        overflow: hidden;
     }
 }
 
-.start_label_box{
+.start_label_box {
     position: absolute;
     left: 0;
     right: 0;
@@ -19,13 +24,21 @@
     display: flex;
     justify-content: center;
 
-    img{
+
+    img {
         width: 30vw;
         height: auto;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
             filter: brightness(1.2);
         }
+
+        @media (max-width: 960px) {
+            overflow: hidden;
+            width: 400px;
+        }
     }
+
+
 }

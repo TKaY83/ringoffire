@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { GameComponent } from './game/game.component';
-import { Player7Component } from './player7/player7.component';
+import { PlayerDesktopComponent } from './player-desktop/player-desktop.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,9 +19,9 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-
 import {AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat/';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import { PlayerMobileComponent } from './player-mobile/player-mobile.component';
 
 
 
@@ -32,9 +32,10 @@ import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
     AppComponent,
     StartScreenComponent,
     GameComponent,
-    Player7Component,
+    PlayerDesktopComponent,
     DialogAddPlayerComponent,
-    GameInfoComponent
+    GameInfoComponent,
+    PlayerMobileComponent
   ],
   imports: [
     BrowserModule,
