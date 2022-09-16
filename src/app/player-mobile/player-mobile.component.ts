@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-player-mobile',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./player-mobile.component.scss']
 })
 export class PlayerMobileComponent implements OnInit {
-
+  @Input() name;
+  @Input() playerActive: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

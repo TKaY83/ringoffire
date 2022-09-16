@@ -13,7 +13,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 @media (min-width: 720px) {
-    .hide_destop{
-        display: none;
+    .hide_desktop{
+        display: none !important;
     }
 }

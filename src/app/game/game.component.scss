@@ -63,6 +63,20 @@
     right: 0%;
 }
 
+.scroll_container{
+    position: absolute;
+    display: flex;
+    left: 0;
+    right: 0;
+    top: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    app-player-mobile{
+        margin-left: 8px;
+    }
+}
+
+
 .btn_add {
     position: absolute;
     right: 32px;
