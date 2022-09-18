@@ -9,8 +9,8 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 })
 export class EditPlayerComponent implements OnInit {
 
-  allProfilePictures = ['lady.png', 'user.png', 'bear.svg', 'hund.svg', 'zebra.svg', 'goat.svg', 'pinguin.svg', 'kuh.svg', 'affe.svg', 'hamter.svg'];
-  
+  allProfilePictures = ['bear.svg', 'hund.svg', 'zebra.svg', 'goat.svg', 'pinguin.svg', 'kuh.svg', 'affe.svg', 'hamter.svg', 'teddy.svg', 'koala.svg', 'ele.svg'];
+  // 'lady.png', 'user.png', 
   constructor(public dialogRef: MatDialogRef<DialogAddPlayerComponent>) { }
 
   ngOnInit(): void {

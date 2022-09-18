@@ -46,10 +46,11 @@
 }
 
 .played_cards {
-    left: 10px;
+    left: 24px;
     transform: scale(1.1) translateX(120px) translateY(-280px) rotate(-10deg);
 
     @media (max-width: 720px) {
+        left: 10px;
         transform: scale(1.1) translateX(120px) translateY(-200px) rotate(-10deg);
     }
 
