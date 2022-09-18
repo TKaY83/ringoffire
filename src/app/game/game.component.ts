@@ -15,6 +15,7 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+  playerWarning = false;
   gameOver = false;
   game: Game;
   gameId: string;
@@ -49,7 +50,10 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (this.game.stack.length == 0) {
+
+    if (this.game.players.length < 2) {
+      this.openDialog();
+    } else if (this.game.stack.length == 0) {
       this.gameOver = true;
     } else if (this.game.players.length >= 2) {
 
@@ -72,7 +76,7 @@ export class GameComponent implements OnInit {
         }, 1200);
       }
     } else {
-      alert('Please select minimum 2 Players')
+      this.playerWarning = true;
     }
   }
 
@@ -104,7 +108,7 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 2) {
         this.game.players.push(name);
-        this.game.playerImages.push('user.png');
+        this.game.playerImages.push('hund.svg');
         this.saveGame();
       }
 
