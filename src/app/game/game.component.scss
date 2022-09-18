@@ -1,14 +1,15 @@
-.game_over{
+.game_over {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    img{
+    img {
         width: 500px;
         height: 500px;
     }
 }
+
 .field {
     width: 100vw;
     height: 100vh;
@@ -131,6 +132,20 @@
     position: absolute;
     right: 32px;
     bottom: 32px;
+
+
+
+    @media (max-width: 720px) {
+        bottom: 15%;
+        position: fixed;
+    }
+}
+
+.preload_image{
+    opacity: 0;
+    z-index: -99999;
+    height: 0;
+    width: 0;
 }
 
 .pin_bottom {
@@ -140,16 +155,18 @@
     right: 100px;
 
     @media (max-width: 720px) {
+        position: fixed;
         left: 0;
         right: 0;
         bottom: 0;
     }
 }
 
-app-player-desktop, app-player-mobile{
+app-player-desktop,
+app-player-mobile {
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         filter: brightness(1.15);
     }
 }
