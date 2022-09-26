@@ -1,3 +1,6 @@
+<div *ngIf="landscape" class="please_turn_device">
+
+</div>
 <app-player-desktop (click)="editPlayer(i)" *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 90)}"
     [playerActive]="i == game.currentPlayer" [image]="game.playerImages[i]" [name]="player" class="player_position hide_mobile"></app-player-desktop>
 

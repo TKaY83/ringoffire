@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
@@ -14,11 +14,12 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnChanges {
   playerWarning = false;
   gameOver = false;
   game: Game;
   gameId: string;
+  landscape = false;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
 
@@ -43,6 +44,13 @@ export class GameComponent implements OnInit {
           this.game.currentCard = game.currentCard;
         });
     });
+
+  }
+
+  ngOnChanges() {
+    if (screen.availHeight > screen.availWidth) {
+      this.landscape = true;
+    }
   }
 
   newGame() {
@@ -95,11 +103,7 @@ export class GameComponent implements OnInit {
         }
         this.saveGame();
       }
-
-
-
     });
-
   }
 
   openDialog(): void {

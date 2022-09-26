@@ -108,6 +108,16 @@
     }
 }
 
+.please_turn_device {
+    z-index: 9;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 .player_position {
     position: absolute;
     z-index: 1;
@@ -142,7 +152,7 @@
     }
 }
 
-.preload_image{
+.preload_image {
     opacity: 0;
     z-index: -99999;
     height: 0;
