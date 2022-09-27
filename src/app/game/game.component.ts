@@ -25,8 +25,7 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGame();
-    
-    // Creates game JSON in game Object and pushes to firestore
+
     this.route.params.subscribe((params) => {
       this.gameId = params['id']
       this
@@ -35,15 +34,19 @@ export class GameComponent implements OnInit {
         .doc(this.gameId)
         .valueChanges()
         .subscribe((game: any) => {
-          this.game.currentPlayer = game.currentPlayer;
-          this.game.playedCards = game.playedCards;
-          this.game.players = game.players;
-          this.game.playerImages = game.playerImages;
-          this.game.stack = game.stack;
-          this.game.pickCardAnimaton = game.pickCardAnimaton;
-          this.game.currentCard = game.currentCard;
+          this.updateGame(game);
         });
     });
+  }
+
+  updateGame(game: any) {
+    this.game.currentPlayer = game.currentPlayer;
+    this.game.playedCards = game.playedCards;
+    this.game.players = game.players;
+    this.game.playerImages = game.playerImages;
+    this.game.stack = game.stack;
+    this.game.pickCardAnimaton = game.pickCardAnimaton;
+    this.game.currentCard = game.currentCard;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -61,22 +64,24 @@ export class GameComponent implements OnInit {
       this.openDialog();
     } else if (this.cardStack() == 0) {
       this.gameOver = true;
-    } else if (this.playerAmount() >= 2) {
-      if (!this.game.pickCardAnimaton) {
-        this.game.currentCard = this.game.stack.pop();
-        this.game.pickCardAnimaton = true;
-        setTimeout(() => {
-          this.playerRow();
-        }, 1200)
-        this.saveGame();
-        setTimeout(() => {
-          this.pickCardAnimation();
-          this.saveGame();
-        }, 1200);
-      }
+    } else if (this.playerAmount() >= 2 && !this.game.pickCardAnimaton) {
+      this.handleCardTake();
     } else {
       this.playerWarning = true;
     }
+  }
+
+  handleCardTake() {
+    this.game.currentCard = this.game.stack.pop();
+    this.game.pickCardAnimaton = true;
+    setTimeout(() => {
+      this.playerRow();
+    }, 1200)
+    this.saveGame();
+    setTimeout(() => {
+      this.pickCardAnimation();
+      this.saveGame();
+    }, 1200);
   }
 
   pickCardAnimation() {

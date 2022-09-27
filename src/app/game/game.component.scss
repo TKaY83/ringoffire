@@ -142,13 +142,14 @@
 }
 
 .btn_add {
+    margin: 8px;
     position: absolute;
-    right: 32px;
-    bottom: 32px;
+    z-index: 1;
+    right: 0%;
 
     @media (max-width: 720px) {
-        bottom: 15%;
-        position: fixed;
+        margin: 8px;
+        position: unset;
     }
 }
 
