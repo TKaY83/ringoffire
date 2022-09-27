@@ -5,7 +5,9 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './player-desktop.component.html',
   styleUrls: ['./player-desktop.component.scss']
 })
+
 export class PlayerDesktopComponent implements OnInit {
+
   @Input() image;
   @Input() name;
   @Input() playerActive:boolean = false;

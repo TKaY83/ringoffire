@@ -16,5 +16,4 @@ export class DialogAddPlayerComponent implements OnInit {
   onNoClick() {
     this.dialogRef.close();
   }
-
 }

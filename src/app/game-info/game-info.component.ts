@@ -8,7 +8,6 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class GameInfoComponent implements OnInit, OnChanges {
 
   //english version below
-
   cardActionEN = [
     { title: 'Waterfall', description: 'Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.' },
     { title: 'You', description: 'You decide who drinks' },
@@ -26,7 +25,6 @@ export class GameInfoComponent implements OnInit, OnChanges {
   ];
 
   //turkish version below
-
   cardActionTR = [
     { title: 'Şelale', description: 'Herzez ayni zamda icmeli. 1. Oyuncu içmeyi bırakır bırakmaz 2. Oyuncu içmeyi bırakabilir. 3. Oyuncu, 2. Oyuncu içmeyi bıraktığı anda durabilir, vb.' },
     { title: 'Sen', description: 'Kimin içeceğine sen karar ver' },
@@ -44,7 +42,6 @@ export class GameInfoComponent implements OnInit, OnChanges {
   ];
 
   //german version below
-
   cardActionDE = [
     { title: 'Wasserfall', description: 'Alle müssen gleichzeitig mit dem Trinken beginnen. Sobald Spieler 1 aufhört zu trinken, darf Spieler 2 aufhören zu trinken. Spieler 3 kann aufhören, sobald Spieler 2 aufhört zu trinken, und so weiter.' },
     { title: 'Du', description: 'Du entscheidest, wer trinkt' },
@@ -68,17 +65,13 @@ export class GameInfoComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
   ngOnChanges() {
     if (this.card) {
-      // console.log('Current card is:', this.card.split('_')[0])
       let cardNumber = +this.card.split('_')[1];
       this.title = this.cardActionEN[cardNumber - 1].title;
       this.description = this.cardActionEN[cardNumber - 1].description;
     }
-
   }
-
 }

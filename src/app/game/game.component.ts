@@ -1,34 +1,34 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-// import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
-
-
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit, OnChanges {
+export class GameComponent implements OnInit {
   playerWarning = false;
   gameOver = false;
   game: Game;
   gameId: string;
   landscape = false;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
+  constructor(
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
     this.newGame();
+    
+    // Creates game JSON in game Object and pushes to firestore
     this.route.params.subscribe((params) => {
       this.gameId = params['id']
-      // console.log(this.gameId);
-
       this
         .firestore
         .collection('games')
@@ -44,13 +44,11 @@ export class GameComponent implements OnInit, OnChanges {
           this.game.currentCard = game.currentCard;
         });
     });
-
   }
 
-  ngOnChanges() {
-    if (screen.availHeight > screen.availWidth) {
-      this.landscape = true;
-    }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.landscape = screen.availHeight < screen.availWidth && screen.availWidth < 900;
   }
 
   newGame() {
@@ -59,27 +57,20 @@ export class GameComponent implements OnInit, OnChanges {
 
   takeCard() {
 
-    if (this.game.players.length < 2) {
+    if (this.playerAmount() < 2) {
       this.openDialog();
-    } else if (this.game.stack.length == 0) {
+    } else if (this.cardStack() == 0) {
       this.gameOver = true;
-    } else if (this.game.players.length >= 2) {
-
+    } else if (this.playerAmount() >= 2) {
       if (!this.game.pickCardAnimaton) {
         this.game.currentCard = this.game.stack.pop();
         this.game.pickCardAnimaton = true;
-        // console.log('New Card:' + this.game.currentCard);
-        // console.log('Game is', this.game);
-
-
         setTimeout(() => {
-          this.game.currentPlayer++;
-          this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+          this.playerRow();
         }, 1200)
         this.saveGame();
         setTimeout(() => {
-          this.game.playedCards.push(this.game.currentCard);
-          this.game.pickCardAnimaton = false;
+          this.pickCardAnimation();
           this.saveGame();
         }, 1200);
       }
@@ -88,10 +79,26 @@ export class GameComponent implements OnInit, OnChanges {
     }
   }
 
-  editPlayer(playerId: number) {
-    console.log('Edit pLayer', playerId);
-    const dialogRef = this.dialog.open(EditPlayerComponent);
+  pickCardAnimation() {
+    this.game.playedCards.push(this.game.currentCard);
+    this.game.pickCardAnimaton = false;
+  }
 
+  playerRow() {
+    this.game.currentPlayer++;
+    this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+  }
+
+  playerAmount() {
+    return this.game.players.length
+  }
+
+  cardStack() {
+    return this.game.stack.length
+  }
+
+  editPlayer(playerId: number) {
+    const dialogRef = this.dialog.open(EditPlayerComponent);
     dialogRef.afterClosed().subscribe((change: string) => {
       if (change) {
         if (change == 'DELETE') {
@@ -99,7 +106,6 @@ export class GameComponent implements OnInit, OnChanges {
           this.game.players.splice(playerId, 1)
         } else {
           this.game.playerImages[playerId] = change;
-
         }
         this.saveGame();
       }
@@ -108,14 +114,12 @@ export class GameComponent implements OnInit, OnChanges {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
-
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 2) {
         this.game.players.push(name);
         this.game.playerImages.push('hund.svg');
         this.saveGame();
       }
-
     });
   }
 

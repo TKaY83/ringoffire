@@ -5,10 +5,12 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './player-mobile.component.html',
   styleUrls: ['./player-mobile.component.scss']
 })
+
 export class PlayerMobileComponent implements OnInit {
   @Input() image = 'user.png';
   @Input() name;
   @Input() playerActive: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
