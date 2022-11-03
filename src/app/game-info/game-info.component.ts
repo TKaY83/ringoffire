@@ -43,19 +43,19 @@ export class GameInfoComponent implements OnInit, OnChanges {
 
   //german version below
   cardActionDE = [
-    { title: 'Wasserfall', description: 'Alle müssen gleichzeitig mit dem Trinken beginnen. Sobald Spieler 1 aufhört zu trinken, darf Spieler 2 aufhören zu trinken. Spieler 3 kann aufhören, sobald Spieler 2 aufhört zu trinken, und so weiter.' },
+    { title: 'Wasserfall', description: 'Wenn du diese Karte gezogen hast, schüttest du etwas von deinem Becherinhalt in das Glas in der Mitte. Wer den letzten im Spiel befindlichen Ass zieht, muss dieses Glas austrinken. Prost!' },
     { title: 'Du', description: 'Du entscheidest, wer trinkt' },
     { title: 'Ich', description: 'Herzlichen Glückwunsch! Trink einen Shot!' },
-    { title: 'Kategorie', description: 'Überlegen Sie sich eine Kategorie (z. B. Farben). Jeder Spieler muss einen Gegenstand aus der Kategorie aufzählen.' },
+    { title: 'Kategorie', description: 'Überlegen Sie sich eine Kategorie (z. B. Farben, Autos. Pflanzen). Jeder Spieler muss einen Gegenstand aus der Kategorie aufzählen.' },
     { title: 'Tanz Move', description: 'Spieler 1 macht eine Tanzbewegung. Spieler 2 wiederholt die Tanzbewegung und fügt eine zweite hinzu, und so weiter. ' },
     { title: 'Mädels', description: 'Alle mädchen trinken.' },
     { title: 'Himmel', description: 'Hände hoch! Der letzte Spieler trinkt!' },
     { title: 'Partner', description: 'Suche dir einen Partner aus. Ihr Partner muss immer trinken, wenn Sie trinken und umgekehrt.' },
-    { title: 'Thumbmaster', description: '' },
-    { title: 'Männer', description: 'Alle Männer Trinken.' },
-    { title: 'Quizmaster', description: '' },
+    { title: 'Thumbmaster', description: 'Du wirst zum Thumbmaster und musst deinen Daumen auf den Tisch bzw. die Spielfläche legen. Auch alle anderen Spieler müssen dies tun und wer zuletzt reagiert, muss trinken.' },
+    { title: 'Jungs', description: 'Alle Männer Trinken.' },
+    { title: 'Quizmaster', description: 'Mit dir darf niemand reden, bis jemand anderes einen Buben gezogen hat. Wer doch mit dir redet, muss trinken.' },
     { title: 'Ich habe noch nie...', description: 'Sag etwas, was du nie getan hast. Jeder, der es getan hat, muss trinken.' },
-    { title: 'Regel', description: 'Machene eine Regel. Jeder muss trinken, wenn er die Regel bricht.' },
+    { title: 'Regel', description: 'Hast du diese Karte gezogen, darfst du dir eine neue Regel ausdenken, wann, ob, wie oder wie viel getrunken werden muss. Wer die Regel nicht befolgt – muss trinken. Diese kommt dann zu den bereits vorhandenen Ringe of Fire Regeln hinzu.' },
   ];
 
   title: string = '';
@@ -70,8 +70,8 @@ export class GameInfoComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.card) {
       let cardNumber = +this.card.split('_')[1];
-      this.title = this.cardActionEN[cardNumber - 1].title;
-      this.description = this.cardActionEN[cardNumber - 1].description;
+      this.title = this.cardActionDE[cardNumber - 1].title;
+      this.description = this.cardActionDE[cardNumber - 1].description;
     }
   }
 }
